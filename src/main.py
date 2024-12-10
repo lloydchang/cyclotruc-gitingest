@@ -4,7 +4,7 @@ from fastapi.responses import HTMLResponse, FileResponse
 from fastapi.staticfiles import StaticFiles
 import os
 from dotenv import load_dotenv
-from api_analytics.fastapi import Analytics
+# from api_analytics.fastapi import Analytics
 from starlette.middleware.trustedhost import TrustedHostMiddleware
 from routers import download, dynamic, index
 
@@ -13,7 +13,7 @@ load_dotenv()
 
 app = FastAPI()
 app.mount("/static", StaticFiles(directory="static"), name="static")
-app.add_middleware(Analytics, api_key=os.getenv('API_ANALYTICS_KEY'))
+# app.add_middleware(Analytics, api_key=os.getenv('API_ANALYTICS_KEY'))
 app.add_middleware(TrustedHostMiddleware, allowed_hosts=["gitingest.com", "*.gitingest.com", "gitdigest.dev", "localhost"])
 templates = Jinja2Templates(directory="templates")
 
