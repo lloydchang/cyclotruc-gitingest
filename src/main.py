@@ -17,8 +17,12 @@ app.mount("/static", StaticFiles(directory="static"), name="static")
 app.add_middleware(TrustedHostMiddleware, allowed_hosts=["gitingest.com", "*.gitingest.com", "gitdigest.dev", "localhost"])
 templates = Jinja2Templates(directory="templates")
 
-    
+@app.get("/health")
+async def health_check():
+    return {"status": "healthy"}
 
+    
+@app.get("/api/", response_class=HTMLResponse)
 @app.get("/api", response_class=HTMLResponse)
 async def api_docs(request: Request):
     return templates.TemplateResponse(
